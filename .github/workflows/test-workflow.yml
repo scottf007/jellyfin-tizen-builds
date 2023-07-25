@@ -16,37 +16,37 @@ jobs:
       - name: Run a one-line script
         run: echo ${{ github.event.client_payload.release_label }}
         
-      - name: Get Latest Jellyfin-web
-        id: latest-web
+      - name: Get Latest Jellyfin-vue
+        id: latest-vue
         uses: pozetroninc/github-action-get-latest-release@master
         with:
           owner: jellyfin
-          repo: jellyfin-web
+          repo: jellyfin-vue
           excludes: prerelease, draft
         
-      - name: Get Latest Jellyfin-web PreRelease
-        id: latest-web-prereleasee
+      - name: Get Latest Jellyfin-vue PreRelease
+        id: latest-vue-prereleasee
         uses: pozetroninc/github-action-get-latest-release@master
         with:
           owner: jellyfin
-          repo: jellyfin-web
+          repo: jellyfin-vue
           excludes: release, draft
           
-      - name: Clone jellyfin-web
+      - name: Clone jellyfin-vue
         uses: sudosubin/git-clone-action@v1.0.1
         with:
-          repository: 'jellyfin/jellyfin-web'
+          repository: 'jellyfin/jellyfin-vue'
           platform: 'github'
-          path: 'jellyfin-web'
-          ref: ${{ steps.latest-web.outputs.release }}
+          path: 'jellyfin-vue'
+          ref: ${{ steps.latest-vue.outputs.release }}
           
-      - name: Clone jellyfin-web PreRelease
+      - name: Clone jellyfin-vue PreRelease
         uses: sudosubin/git-clone-action@v1.0.1
         with:
-          repository: 'jellyfin/jellyfin-web'
+          repository: 'jellyfin/jellyfin-vue'
           platform: 'github'
-          path: 'jellyfin-web-prerelease'
-          ref: ${{ steps.latest-web-prereleasee.outputs.release }}
+          path: 'jellyfin-vue-prerelease'
+          ref: ${{ steps.latest-vue-prereleasee.outputs.release }}
           
       - run: ls
         
@@ -63,5 +63,5 @@ jobs:
         
       - name: Print Release Info
         run: |
-          echo ${{ github.event.client_payload.data.webRelease.name }}
-          echo ${{ github.event.client_payload.data.webPreRelease.name }}
+          echo ${{ github.event.client_payload.data.vueRelease.name }}
+          echo ${{ github.event.client_payload.data.vuePreRelease.name }}
